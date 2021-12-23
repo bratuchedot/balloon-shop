@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Confirmation Info | Balloon Shop</title>
+    <title>Orders | Balloon Shop</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -28,46 +28,38 @@
 <section class="jumbotron text-center">
     <div class="container">
         <h1 class="jumbotron-heading">BALLOON SHOP</h1>
-        <h3 class="jumbotron-heading">Confirmation Info</h3>
+        <h3 class="jumbotron-heading">Preview All Orders</h3>
     </div>
 </section>
 
 <div class="container mb-4">
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <tr>
-                <td><b>Client Name </b></td>
-                <td th:text="${session.clientName}"></td>
-            </tr>
-            <tr>
-                <td><b>Client Address </b></td>
-                <td th:text="${session.clientAddress}"></td>
-            </tr>
-            <tr>
-                <td><b>Client IP Address</b></td>
-                <td th:text="${ipAddress}"></td>
-            </tr>
-            <tr>
-                <td><b>Client Browser</b></td>
-                <td th:text="${clientBrowser}"></td>
-            </tr>
-            <tr>
-                <td><b>Balloon Color </b></td>
-                <td th:text="${session.color}"></td>
-            </tr>
-            <tr>
-                <td><b>Balloon Size </b></td>
-                <td th:text="${session.size}"></td>
-            </tr>
-        </table>
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Color</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Address</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order: ${orders}">
+                    <td th:text="${order.balloonColor}"></td>
+                    <td th:text="${order.balloonSize}"></td>
+                    <td th:text="${order.clientName}"></td>
+                    <td th:text="${order.clientAddress}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    </br>
-    <div>
-        <form th:method="POST" th:action="@{/ConfirmationInfo}">
-            <button type="submit" class="btn btn-block btn-dark mb-2" th:value="Confirm">Confirm</button>
-        </form>
-        <a class="btn btn-block btn-secondary" href="/logout">Logout</a>
-        <a class="btn btn-block btn-light" href="/BalloonOrder.do">Back</a>
+</div>
+
+<div class="jumbotron">
+    <div class="container">
+        <h4 class="jumbotron-heading">Requests number: <span th:text="${session.reqCounter}"></span></h4>
     </div>
 </div>
 

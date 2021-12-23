@@ -1,5 +1,6 @@
 package mk.ukim.finki.balloon.shop.web;
 
+import mk.ukim.finki.balloon.shop.service.OrderService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -14,9 +15,11 @@ import java.io.IOException;
 public class ConfirmationInfoServlet extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
+    private final OrderService orderService;
 
-    public ConfirmationInfoServlet(SpringTemplateEngine springTemplateEngine) {
+    public ConfirmationInfoServlet(SpringTemplateEngine springTemplateEngine, OrderService orderService) {
         this.springTemplateEngine = springTemplateEngine;
+        this.orderService = orderService;
     }
 
     @Override
@@ -25,6 +28,17 @@ public class ConfirmationInfoServlet extends HttpServlet {
         context.setVariable("ipAddress", req.getRemoteAddr());
         context.setVariable("clientBrowser", req.getHeader("User-Agent"));
         springTemplateEngine.process("confirmationInfo.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String balloonColor = (String) req.getSession().getAttribute("color");
+        String balloonSize = (String) req.getSession().getAttribute("size");
+        String clientName = (String) req.getSession().getAttribute("clientName");
+        String clientAddress = (String) req.getSession().getAttribute("clientAddress");
+
+        orderService.placeOrder(balloonColor, balloonSize, clientName, clientAddress);
+        resp.sendRedirect("/orders");
     }
 
 }

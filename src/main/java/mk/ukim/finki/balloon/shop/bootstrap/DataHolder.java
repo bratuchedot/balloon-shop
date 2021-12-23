@@ -2,6 +2,7 @@ package mk.ukim.finki.balloon.shop.bootstrap;
 
 import lombok.Getter;
 import mk.ukim.finki.balloon.shop.model.Balloon;
+import mk.ukim.finki.balloon.shop.model.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +14,7 @@ import java.util.List;
 public class DataHolder {
 
     public static List<Balloon> balloons = new ArrayList<>();
+    public static List<Order> orders = new ArrayList<>();
 
     @PostConstruct
     public void init() {
