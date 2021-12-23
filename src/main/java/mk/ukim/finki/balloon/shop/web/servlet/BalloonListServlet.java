@@ -1,4 +1,4 @@
-package mk.ukim.finki.balloon.shop.web;
+package mk.ukim.finki.balloon.shop.web.servlet;
 
 import mk.ukim.finki.balloon.shop.service.BalloonService;
 import org.thymeleaf.context.WebContext;

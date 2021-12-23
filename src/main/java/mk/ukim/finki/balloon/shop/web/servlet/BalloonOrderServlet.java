@@ -1,4 +1,4 @@
-package mk.ukim.finki.balloon.shop.web;
+package mk.ukim.finki.balloon.shop.web.servlet;
 
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -10,33 +10,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "select-balloon-servlet", urlPatterns = "/selectBalloon")
-public class SelectBalloonServlet extends HttpServlet {
+@WebServlet(name = "balloon-order-servlet", urlPatterns = "/BalloonOrder.do")
+public class BalloonOrderServlet extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
 
-    public SelectBalloonServlet(SpringTemplateEngine springTemplateEngine) {
+    public BalloonOrderServlet(SpringTemplateEngine springTemplateEngine) {
         this.springTemplateEngine = springTemplateEngine;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        springTemplateEngine.process("selectBalloonSize.html", context, resp.getWriter());
+        springTemplateEngine.process("deliveryInfo.html", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String size = req.getParameter("size");
-        if (size == null || size.isEmpty()) {
+        String clientName = req.getParameter("clientName");
+        String clientAddress = req.getParameter("clientAddress");
+        if (clientName == null || clientName.isEmpty() || clientAddress == null || clientAddress.isEmpty()) {
             WebContext context = new WebContext(req, resp, req.getServletContext());
             context.setVariable("hasError", true);
-            context.setVariable("error", "Choose a size before submitting!");
-            springTemplateEngine.process("selectBalloonSize.html", context, resp.getWriter());
+            context.setVariable("error", "Enter Client Name and Delivery Address before submitting!");
+            springTemplateEngine.process("deliveryInfo.html", context, resp.getWriter());
             return;
         }
-        req.getSession().setAttribute("size", size);
-        resp.sendRedirect("/BalloonOrder.do");
+
+        req.getSession().setAttribute("clientName", clientName);
+        req.getSession().setAttribute("clientAddress", clientAddress);
+
+        resp.sendRedirect("/ConfirmationInfo");
+
     }
 
 }

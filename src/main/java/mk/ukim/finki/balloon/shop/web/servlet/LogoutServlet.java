@@ -1,4 +1,4 @@
-package mk.ukim.finki.balloon.shop.web;
+package mk.ukim.finki.balloon.shop.web.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
