@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/balloons")
@@ -64,6 +66,49 @@ public class BalloonController {
         List<Manufacturer> manufacturers = manufacturerService.findAll();
         model.addAttribute("manufacturers", manufacturers);
         return "add-balloon";
+    }
+
+    @GetMapping("/search")
+    public String searchBalloons(@RequestParam String filterBy,
+                                 Model model) {
+        List<Balloon> balloons;
+        if (filterBy != null && !filterBy.isEmpty()) {
+            model.addAttribute("filterBy", filterBy);
+            balloons = balloonService.searchByNameOrManufacturersCountry(filterBy);
+        } else {
+            balloons = balloonService.listAll();
+        }
+        model.addAttribute("balloons", balloons);
+        return "listBalloons";
+    }
+
+    @GetMapping("/add-man-form")
+    public String getAddManufacturerPage(Model model) {
+        List<Manufacturer> manufacturers = manufacturerService.findAll();
+        model.addAttribute("manufacturers", manufacturers);
+        return "add-manufacturer";
+    }
+
+    @GetMapping("/edit-man-form/{id}")
+    public String getEditManufacturerPage(@PathVariable Long id, Model model) {
+        if (manufacturerService.findById(id).isPresent()) {
+            Manufacturer manufacturer = manufacturerService.findById(id).get();
+            model.addAttribute("manufacturer", manufacturer);
+            List<Manufacturer> manufacturers = manufacturerService.findAll();
+            model.addAttribute("manufacturers", manufacturers);
+            return "add-manufacturer";
+        }
+        return "redirect:/add-man-form?error=ManufacturerNotFound"; // ???
+    }
+
+    @PostMapping("/add-man")
+    public String saveManufacturer(@RequestParam String manName,
+                                   @RequestParam String manCountry,
+                                   @RequestParam String manAddress,
+                                   @RequestParam String creationDate) {
+        LocalDate localDate = LocalDate.parse(creationDate);
+        manufacturerService.save(manName, manCountry, manAddress, Objects.requireNonNullElseGet(localDate, LocalDate::now));
+        return "redirect:/balloons/add-man-form";
     }
 
 }

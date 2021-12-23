@@ -40,4 +40,11 @@ public class InMemoryBalloonRepository {
         return Optional.of(balloon);
     }
 
+    public List<Balloon> findAllByNameOrManufacturersCountry(String text) {
+        return DataHolder.balloons.stream()
+                .filter(r -> r.getName().contains(text)
+                        || ((r.getManufacturer() != null) ? r.getManufacturer().getCountry().contains(text) : r.getName().contains(text)))
+                .collect(Collectors.toList());
+    }
+
 }

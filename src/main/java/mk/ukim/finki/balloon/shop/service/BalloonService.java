@@ -17,4 +17,6 @@ public interface BalloonService {
 
     Optional<Balloon> save(String name, String description, Long manufacturerId);
 
+    List<Balloon> searchByNameOrManufacturersCountry(String text);
+
 }

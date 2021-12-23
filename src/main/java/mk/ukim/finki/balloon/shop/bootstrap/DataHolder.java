@@ -7,6 +7,7 @@ import mk.ukim.finki.balloon.shop.model.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class DataHolder {
         manufacturers.add(new Manufacturer("Soder&Co", "Sweden", "Gyllenkrooksgatan 1, Goteborg"));
         Manufacturer alice = new Manufacturer("Alice", "Wonderland", "76th Street 66, New York City");
         manufacturers.add(alice);
+        manufacturers.add(new Manufacturer("NOWtime", "Serbia", "SRB, NOW", LocalDate.now()));
 
         balloons.add(new Balloon("Private", "Penguins balloons", bloons));
         balloons.add(new Balloon("Kowalski", "Penguins balloons", bloons));

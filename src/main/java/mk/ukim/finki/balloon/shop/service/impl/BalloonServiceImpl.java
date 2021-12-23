@@ -50,4 +50,9 @@ public class BalloonServiceImpl implements BalloonService {
         return inMemoryBalloonRepository.save(name, description, manufacturer);
     }
 
+    @Override
+    public List<Balloon> searchByNameOrManufacturersCountry(String text) {
+        return inMemoryBalloonRepository.findAllByNameOrManufacturersCountry(text);
+    }
+
 }

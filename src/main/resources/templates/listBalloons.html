@@ -51,6 +51,23 @@
 
 <div class="container mb-4">
     <h3 class="jumbotron-heading">All balloons:</h3>
+    <div>
+        <form class="form-inline my-2 my-lg-0" action="/balloons/search" method="GET">
+            <div class="input-group input-group-sm">
+                <input type="text"
+                       class="form-control"
+                       aria-label="Small"
+                       aria-describedby="inputGroup-sizing-sm"
+                       placeholder="Search by name or manufacturer country..."
+                       name="filterBy"
+                       th:value="${filterBy}">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary btn-number">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
     <div class="row">
         <div class="col-12" th:if="${balloons.size() > 0}">
             <div class="table-responsive">
@@ -85,8 +102,13 @@
         </div>
         <div class="col mb-3">
             <div class="row">
-                <div class="col-sm-12 col-md-12">
+                <div class="col-sm-12 col-md-12 mb-2">
                     <a href="/balloons/add-form" class="btn btn-block btn-dark">Add new balloon</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 mb-2">
+                    <a href="/balloons/add-man-form" class="btn btn-block btn-secondary">Add new or Edit manufacturer</a>
                 </div>
             </div>
         </div>
