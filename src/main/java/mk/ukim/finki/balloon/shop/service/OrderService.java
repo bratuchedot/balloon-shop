@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface OrderService {
 
-    Order placeOrder(String balloonColor, String balloonSize, String clientName, String address);
+    Order placeOrder(String balloonColor, String balloonSize);
 
     List<Order> listOrders();
 

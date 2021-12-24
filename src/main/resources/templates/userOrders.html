@@ -40,16 +40,12 @@
                 <tr>
                     <th scope="col">Color</th>
                     <th scope="col">Size</th>
-                    <th scope="col">Client</th>
-                    <th scope="col">Address</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="order: ${orders}">
                     <td th:text="${order.balloonColor}"></td>
                     <td th:text="${order.balloonSize}"></td>
-                    <td th:text="${order.clientName}"></td>
-                    <td th:text="${order.clientAddress}"></td>
                 </tr>
                 </tbody>
             </table>

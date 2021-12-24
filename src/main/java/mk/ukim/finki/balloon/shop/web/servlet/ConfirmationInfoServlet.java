@@ -37,7 +37,7 @@ public class ConfirmationInfoServlet extends HttpServlet {
         String clientName = (String) req.getSession().getAttribute("clientName");
         String clientAddress = (String) req.getSession().getAttribute("clientAddress");
 
-        orderService.placeOrder(balloonColor, balloonSize, clientName, clientAddress);
+        orderService.placeOrder(balloonColor, balloonSize);
         resp.sendRedirect("/orders");
     }
 

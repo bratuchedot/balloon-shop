@@ -9,7 +9,7 @@ public interface BalloonService {
 
     List<Balloon> listAll();
 
-    List<Balloon> searchByNameOrDescription(String text);
+//    Optional<Balloon> searchByNameOrDescription(String text);
 
     void deleteById(Long id);
 

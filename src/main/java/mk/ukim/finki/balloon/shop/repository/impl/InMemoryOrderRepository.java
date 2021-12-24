@@ -1,4 +1,4 @@
-package mk.ukim.finki.balloon.shop.repository;
+package mk.ukim.finki.balloon.shop.repository.impl;
 
 import mk.ukim.finki.balloon.shop.bootstrap.DataHolder;
 import mk.ukim.finki.balloon.shop.model.Order;
