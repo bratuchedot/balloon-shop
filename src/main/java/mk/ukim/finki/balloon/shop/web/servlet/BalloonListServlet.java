@@ -29,19 +29,19 @@ public class BalloonListServlet extends HttpServlet {
         springTemplateEngine.process("listBalloons.html", context, resp.getWriter());
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String color = req.getParameter("color");
-        if (color == null || color.isEmpty()) {
-            WebContext context = new WebContext(req, resp, req.getServletContext());
-            context.setVariable("hasError", true);
-            context.setVariable("error", "Select a color before submitting!");
-            context.setVariable("balloons", balloonService.listAll());
-            springTemplateEngine.process("listBalloons.html", context, resp.getWriter());
-            return;
-        }
-        req.getSession().setAttribute("color", color);
-        resp.sendRedirect("/selectBalloon");
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String color = req.getParameter("color");
+//        if (color == null || color.isEmpty()) {
+//            WebContext context = new WebContext(req, resp, req.getServletContext());
+//            context.setVariable("hasError", true);
+//            context.setVariable("error", "Select a color before submitting!");
+//            context.setVariable("balloons", balloonService.listAll());
+//            springTemplateEngine.process("listBalloons.html", context, resp.getWriter());
+//            return;
+//        }
+//        req.getSession().setAttribute("color", color);
+//        resp.sendRedirect("/selectBalloon");
+//    }
 
 }

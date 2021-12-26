@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -15,13 +16,20 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
+//    TODO: Link users and orders in database
+//    @ManyToOne
+//    private User ofUser;
+
     private String balloonColor;
 
     private String balloonSize;
 
-    public Order(String balloonColor, String balloonSize) {
+    private LocalDateTime dateCreated;
+
+    public Order(String balloonColor, String balloonSize, LocalDateTime dateCreated) {
         this.balloonColor = balloonColor;
         this.balloonSize = balloonSize;
+        this.dateCreated = dateCreated;
     }
 
 }

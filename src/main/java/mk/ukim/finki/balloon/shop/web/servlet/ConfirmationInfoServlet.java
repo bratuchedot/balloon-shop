@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @WebServlet(name = "confirmation-info-servlet", urlPatterns = "/ConfirmationInfo")
 public class ConfirmationInfoServlet extends HttpServlet {
@@ -30,15 +31,14 @@ public class ConfirmationInfoServlet extends HttpServlet {
         springTemplateEngine.process("confirmationInfo.html", context, resp.getWriter());
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String balloonColor = (String) req.getSession().getAttribute("color");
-        String balloonSize = (String) req.getSession().getAttribute("size");
-        String clientName = (String) req.getSession().getAttribute("clientName");
-        String clientAddress = (String) req.getSession().getAttribute("clientAddress");
-
-        orderService.placeOrder(balloonColor, balloonSize);
-        resp.sendRedirect("/orders");
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String balloonColor = (String) req.getSession().getAttribute("color");
+//        String balloonSize = (String) req.getSession().getAttribute("size");
+//        LocalDateTime dateCreated = (LocalDateTime) req.getSession().getAttribute("dateCreated");
+//
+//        orderService.placeOrder(balloonColor, balloonSize, dateCreated);
+//        resp.sendRedirect("/orders");
+//    }
 
 }

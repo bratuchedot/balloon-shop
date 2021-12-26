@@ -41,22 +41,52 @@
 </section>
 
 <div class="container mb-4">
+    <h3 class="jumbotron-heading">Filter orders between dates:</h3>
+    <div>
+        <form class="form-inline my-2 my-lg-0" action="/orders/filter" method="GET">
+            <div class="input-group input-group-sm">
+                <input type="datetime-local"
+                       class="form-control"
+                       aria-label="Small"
+                       aria-describedby="inputGroup-sizing-sm"
+                       name="dateFrom"
+                       required="">
+                <input type="datetime-local"
+                       class="form-control"
+                       aria-label="Small"
+                       aria-describedby="inputGroup-sizing-sm"
+                       name="dateTo"
+                       required="">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary btn-number">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
     <div class="row">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">Color</th>
-                    <th scope="col">Size</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="order: ${orders}">
-                    <td th:text="${order.balloonColor}"></td>
-                    <td th:text="${order.balloonSize}"></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="col-12" th:if="${orders.size() > 0}">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Client Username</th>
+                        <th scope="col">Balloon Color</th>
+                        <th scope="col">Balloon Size</th>
+                        <th scope="col">Order Creation Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order: ${orders}">
+                        <!--TODO: order.user instead of session.user-->
+                        <td th:text="${session.user.getUsername()}"></td>
+                        <td th:text="${order.balloonColor}"></td>
+                        <td th:text="${order.balloonSize}"></td>
+                        <td th:text="${#temporals.format(order.dateCreated, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

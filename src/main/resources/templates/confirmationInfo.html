@@ -44,20 +44,8 @@
     <div class="table-responsive">
         <table class="table table-striped">
             <tr>
-                <td><b>Client Name </b></td>
-                <td th:text="${session.clientName}"></td>
-            </tr>
-            <tr>
-                <td><b>Client Address </b></td>
-                <td th:text="${session.clientAddress}"></td>
-            </tr>
-            <tr>
-                <td><b>Client IP Address</b></td>
-                <td th:text="${ipAddress}"></td>
-            </tr>
-            <tr>
-                <td><b>Client Browser</b></td>
-                <td th:text="${clientBrowser}"></td>
+                <td><b>Client Username </b></td>
+                <td th:text="${session.user.getUsername()}"></td>
             </tr>
             <tr>
                 <td><b>Balloon Color </b></td>
@@ -67,15 +55,19 @@
                 <td><b>Balloon Size </b></td>
                 <td th:text="${session.size}"></td>
             </tr>
+            <tr>
+                <td><b>Order Creation Date </b></td>
+                <td th:text="${#temporals.format(session.dateCreated, 'dd-MM-yyyy HH:mm:ss')}"></td>
+            </tr>
         </table>
     </div>
     </br>
     <div>
-        <form th:method="POST" th:action="@{/ConfirmationInfo}">
+        <form th:method="POST" th:action="@{/orders/confirm}">
             <button type="submit" class="btn btn-block btn-dark mb-2" th:value="Confirm">Confirm</button>
         </form>
         <a class="btn btn-block btn-secondary" href="/logout">Logout</a>
-        <a class="btn btn-block btn-light" href="/BalloonOrder.do">Back</a>
+        <a class="btn btn-block btn-light" href="/selectBalloonDate">Back</a>
     </div>
 </div>
 

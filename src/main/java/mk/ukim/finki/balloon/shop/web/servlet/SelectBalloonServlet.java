@@ -25,18 +25,18 @@ public class SelectBalloonServlet extends HttpServlet {
         springTemplateEngine.process("selectBalloonSize.html", context, resp.getWriter());
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String size = req.getParameter("size");
-        if (size == null || size.isEmpty()) {
-            WebContext context = new WebContext(req, resp, req.getServletContext());
-            context.setVariable("hasError", true);
-            context.setVariable("error", "Choose a size before submitting!");
-            springTemplateEngine.process("selectBalloonSize.html", context, resp.getWriter());
-            return;
-        }
-        req.getSession().setAttribute("size", size);
-        resp.sendRedirect("/BalloonOrder.do");
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        String size = req.getParameter("size");
+//        if (size == null || size.isEmpty()) {
+//            WebContext context = new WebContext(req, resp, req.getServletContext());
+//            context.setVariable("hasError", true);
+//            context.setVariable("error", "Choose a size before submitting!");
+//            springTemplateEngine.process("selectBalloonSize.html", context, resp.getWriter());
+//            return;
+//        }
+//        req.getSession().setAttribute("size", size);
+//        resp.sendRedirect("/BalloonOrder.do");
+//    }
 
 }
