@@ -25,11 +25,18 @@
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-            <form class="form-inline my-2 my-lg-0">
-                <a class="btn btn-light btn-sm ml-3" href="/logout">
-                    <i class="fa fa-shopping-cart">Logout</i>
-                </a>
-            </form>
+            <th:block sec:authorize="isAuthenticated()">
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-light btn-sm ml-3" href="/logout">
+                        <i class="fa fa-shopping-cart">Logout</i>
+                    </a>
+                </form>
+            </th:block>
+            <th:block sec:authorize="!isAuthenticated()">
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-secondary btn-sm ml-3" href="/login">Login</a>
+                </form>
+            </th:block>
         </div>
     </div>
 </nav>

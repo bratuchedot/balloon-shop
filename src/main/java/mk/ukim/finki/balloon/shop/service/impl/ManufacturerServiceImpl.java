@@ -1,6 +1,7 @@
 package mk.ukim.finki.balloon.shop.service.impl;
 
 import mk.ukim.finki.balloon.shop.model.Manufacturer;
+import mk.ukim.finki.balloon.shop.model.exceptions.ManufacturerNotFoundException;
 import mk.ukim.finki.balloon.shop.repository.impl.InMemoryManufacturerRepository;
 import mk.ukim.finki.balloon.shop.repository.jpa.ManufacturerRepository;
 import mk.ukim.finki.balloon.shop.service.ManufacturerService;
@@ -34,6 +35,18 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     @Transactional
     public Optional<Manufacturer> save(String name, String country, String address, LocalDate creationDate) {
         manufacturerRepository.deleteByName(name);
+        return Optional.of(manufacturerRepository.save(new Manufacturer(name, country, address, creationDate)));
+    }
+
+    @Override
+    @Transactional
+    public Optional<Manufacturer> edit(Long id, String name, String country, String address, LocalDate creationDate) {
+        Manufacturer manufacturer = manufacturerRepository.findById(id)
+                .orElseThrow(() -> new ManufacturerNotFoundException(id));
+        manufacturer.setName(name);
+        manufacturer.setCountry(country);
+        manufacturer.setAddress(address);
+        manufacturer.setCreationDate(creationDate);
         return Optional.of(manufacturerRepository.save(new Manufacturer(name, country, address, creationDate)));
     }
 

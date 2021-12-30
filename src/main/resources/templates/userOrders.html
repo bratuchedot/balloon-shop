@@ -25,11 +25,18 @@
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-            <form class="form-inline my-2 my-lg-0">
-                <a class="btn btn-light btn-sm ml-3" href="/logout">
-                    <i class="fa fa-shopping-cart">Logout</i>
-                </a>
-            </form>
+            <th:block sec:authorize="isAuthenticated()">
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-light btn-sm ml-3" href="/logout">
+                        <i class="fa fa-shopping-cart">Logout</i>
+                    </a>
+                </form>
+            </th:block>
+            <th:block sec:authorize="!isAuthenticated()">
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-secondary btn-sm ml-3" href="/login">Login</a>
+                </form>
+            </th:block>
         </div>
     </div>
 </nav>
@@ -70,7 +77,7 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th scope="col">Client Username</th>
+                        <!--                        <th scope="col">Client Username</th>-->
                         <th scope="col">Balloon Color</th>
                         <th scope="col">Balloon Size</th>
                         <th scope="col">Order Creation Date</th>
@@ -79,7 +86,7 @@
                     <tbody>
                     <tr th:each="order: ${orders}">
                         <!--TODO: order.user instead of session.user-->
-                        <td th:text="${session.user.getUsername()}"></td>
+                        <!--                        <td th:text="${session.user.getUsername()}"></td>-->
                         <td th:text="${order.balloonColor}"></td>
                         <td th:text="${order.balloonSize}"></td>
                         <td th:text="${#temporals.format(order.dateCreated, 'dd-MM-yyyy HH:mm:ss')}"></td>

@@ -4,6 +4,7 @@ import mk.ukim.finki.balloon.shop.model.Balloon;
 import mk.ukim.finki.balloon.shop.model.Manufacturer;
 import mk.ukim.finki.balloon.shop.service.BalloonService;
 import mk.ukim.finki.balloon.shop.service.ManufacturerService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/balloons")
+@RequestMapping(value = {"/", "/balloons"})
 public class BalloonController {
 
     private final BalloonService balloonService;
@@ -36,10 +37,14 @@ public class BalloonController {
     }
 
     @PostMapping("/add")
-    public String saveBalloon(@RequestParam String name,
+    public String saveBalloon(@RequestParam(required = false) Long id,
+                              @RequestParam String name,
                               @RequestParam String description,
                               @RequestParam Long manufacturer) {
-        balloonService.save(name, description, manufacturer);
+        if (id != null)
+            balloonService.edit(id, name, description, manufacturer);
+        else
+            balloonService.save(name, description, manufacturer);
         return "redirect:/balloons";
     }
 
@@ -62,6 +67,7 @@ public class BalloonController {
     }
 
     @GetMapping("/add-form")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getAddBalloonPage(Model model) {
         List<Manufacturer> manufacturers = manufacturerService.findAll();
         model.addAttribute("manufacturers", manufacturers);
@@ -83,6 +89,7 @@ public class BalloonController {
     }
 
     @GetMapping("/add-man-form")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getAddManufacturerPage(Model model) {
         List<Manufacturer> manufacturers = manufacturerService.findAll();
         model.addAttribute("manufacturers", manufacturers);
@@ -102,12 +109,16 @@ public class BalloonController {
     }
 
     @PostMapping("/add-man")
-    public String saveManufacturer(@RequestParam String manName,
+    public String saveManufacturer(@RequestParam(required = false) Long manId,
+                                   @RequestParam String manName,
                                    @RequestParam String manCountry,
                                    @RequestParam String manAddress,
                                    @RequestParam String creationDate) {
         LocalDate localDate = LocalDate.parse(creationDate);
-        manufacturerService.save(manName, manCountry, manAddress, Objects.requireNonNullElseGet(localDate, LocalDate::now));
+        if (manId != null)
+            manufacturerService.edit(manId, manName, manCountry, manAddress, Objects.requireNonNullElseGet(localDate, LocalDate::now));
+        else
+            manufacturerService.save(manName, manCountry, manAddress, Objects.requireNonNullElseGet(localDate, LocalDate::now));
         return "redirect:/balloons/add-man-form";
     }
 

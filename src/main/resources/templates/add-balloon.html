@@ -19,6 +19,7 @@
 <div class="container">
     <form class="form-signin mt-xl-5" method="post" action="/balloons/add">
         <h2 class="form-signin-heading">Add or Edit a Balloon</h2>
+        <input id="id" type="hidden" name="id" th:value="(${balloon} != null ? ${balloon.getId()} : '')">
         <p>
             <label for="name" class="sr-only">Balloon name</label>
             <input type="text"

@@ -52,6 +52,7 @@
 <div class="container mb-4">
     <form class="form-signin mt-xl-5" method="post" action="/balloons/add-man">
         <h2 class="form-signin-heading">Edit from</h2>
+        <input id="manId" type="hidden" name="manId" th:value="(${manufacturer} != null ? ${manufacturer.getId()} : '')">
         <p>
             <label for="manName" class="sr-only">Manufacturer name</label>
             <input type="text"

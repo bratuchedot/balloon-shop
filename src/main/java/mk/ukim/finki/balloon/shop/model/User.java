@@ -26,7 +26,7 @@ public class User {
     /**
      * temporal, delete after creation of authentication system
      * that implements spring security
-     * */
+     */
     private String name;
 
     private String surname;
@@ -47,7 +47,7 @@ public class User {
     /**
      * temporal, delete after creation of authentication system
      * that implements spring security
-     * */
+     */
     public User(String username, String name, String surname, String password, LocalDate dateOfBirth) {
         this.username = username;
         this.name = name;
@@ -56,4 +56,5 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
     /**********************************************************/
+
 }

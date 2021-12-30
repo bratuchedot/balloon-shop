@@ -14,4 +14,7 @@ public interface ManufacturerService {
 
     Optional<Manufacturer> save(String name, String country, String address, LocalDate creationDate);
 
+    Optional<Manufacturer> edit(Long id, String name, String country, String address, LocalDate creationDate);
+
+
 }
