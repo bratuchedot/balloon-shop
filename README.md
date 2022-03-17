@@ -11,6 +11,14 @@
 
 The application is created as a laboratory exercise during the lectures about Web programming at FCSE in Skopje.
 
+Lectures covered:
+- Intro to Spring Boot
+- Spring MVC
+- Thymeleaf
+- Java Persistence API
+- Spring Security
+- Testing web applications (Mock/Selenium)
+
 To run the application you need:
 
 - [Java] - Java programming language
